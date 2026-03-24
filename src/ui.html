@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logo Broth</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 12px;
+      }
+      body {
+        margin: 0;
+        padding: 12px;
+        background: var(--figma-color-bg, #fff);
+        color: var(--figma-color-text, #1f1f1f);
+      }
+      .section {
+        border: 1px solid var(--figma-color-border, #d8d8d8);
+        border-radius: 6px;
+        margin-bottom: 8px;
+        padding: 8px;
+      }
+      h3 {
+        margin: 0 0 8px 0;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 110px 44px;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+      .row.bool,
+      .row.select {
+        grid-template-columns: 1fr 154px;
+      }
+      input[type="range"] { width: 100%; }
+      input[type="checkbox"] { justify-self: end; }
+      select,
+      button {
+        font: inherit;
+        border-radius: 6px;
+        border: 1px solid var(--figma-color-border, #d0d0d0);
+        background: var(--figma-color-bg-secondary, #f7f7f7);
+        color: inherit;
+        padding: 5px 8px;
+      }
+      output { text-align: right; opacity: 0.75; }
+      .actions { display: flex; gap: 6px; margin-top: 8px; }
+      .actions button:first-child {
+        background: var(--figma-color-bg-brand, #0d99ff);
+        border-color: var(--figma-color-bg-brand, #0d99ff);
+        color: #fff;
+      }
+      #status { margin-top: 8px; opacity: 0.85; }
+    </style>
+  </head>
+  <body>
+    <div class="section">
+      <h3>Workflow</h3>
+      <div class="row bool"><label for="duplicateBeforeProcessing">Duplicate before processing</label><input id="duplicateBeforeProcessing" type="checkbox" checked /></div>
+      <div class="row bool"><label for="livePreview">Live preview after first run</label><input id="livePreview" type="checkbox" checked /></div>
+    </div>
+
+    <div class="section">
+      <h3>Logo Options</h3>
+      <div class="row"><label for="count">count</label><input id="count" type="range" min="1" max="500" step="1" value="20" /><output id="count-value">20</output></div>
+      <div class="row"><label for="shuffleSeed">shuffleSeed</label><input id="shuffleSeed" type="range" min="1" max="1000" step="1" value="42" /><output id="shuffleSeed-value">42</output></div>
+    </div>
+
+    <div class="section">
+      <h3>Normalization</h3>
+      <div class="row"><label for="baseSize">baseSize</label><input id="baseSize" type="range" min="16" max="128" step="4" value="48" /><output id="baseSize-value">48</output></div>
+      <div class="row"><label for="scaleFactor">scaleFactor</label><input id="scaleFactor" type="range" min="0" max="1" step="0.1" value="0.5" /><output id="scaleFactor-value">0.5</output></div>
+      <div class="row bool"><label for="densityAware">densityAware</label><input id="densityAware" type="checkbox" checked /></div>
+      <div class="row"><label for="densityFactor">densityFactor</label><input id="densityFactor" type="range" min="0" max="1" step="0.1" value="0.5" /><output id="densityFactor-value">0.5</output></div>
+      <div class="row bool"><label for="cropToContent">cropToContent</label><input id="cropToContent" type="checkbox" /></div>
+    </div>
+
+    <div class="section">
+      <h3>Layout</h3>
+      <div class="row select"><label for="alignBy">alignBy</label><select id="alignBy"><option value="bounds">bounds</option><option value="visual-center">visual-center</option><option value="visual-center-x">visual-center-x</option><option value="visual-center-y" selected>visual-center-y</option></select></div>
+      <div class="row"><label for="gap">gap</label><input id="gap" type="range" min="0" max="48" step="4" value="28" /><output id="gap-value">28</output></div>
+    </div>
+
+    <div class="section">
+      <h3>Debug</h3>
+      <div class="row bool"><label for="showImageBounds">showImageBounds</label><input id="showImageBounds" type="checkbox" /></div>
+      <div class="row bool"><label for="showContainerBounds">showContainerBounds</label><input id="showContainerBounds" type="checkbox" /></div>
+      <div class="row bool"><label for="showHorizontalGrid">showHorizontalGrid</label><input id="showHorizontalGrid" type="checkbox" /></div>
+      <div class="row bool"><label for="showVerticalGrid">showVerticalGrid</label><input id="showVerticalGrid" type="checkbox" /></div>
+      <div class="row"><label for="gridSpacing">gridSpacing</label><input id="gridSpacing" type="range" min="8" max="64" step="4" value="16" /><output id="gridSpacing-value">16</output></div>
+    </div>
+
+    <div class="actions">
+      <button id="process">Process</button>
+      <button id="refresh">Refresh selection</button>
+      <button id="close">Close</button>
+    </div>
+    <div id="status">Waiting for selection…</div>
+    <script src="./ui.js"></script>
+  </body>
+</html>
